@@ -37,7 +37,7 @@
 					</div>
 				</div>
 				<div class="footer d-flex justify-content-center gap-3">
-					<form th:action="@{/pizzas/{id}/offers/create(id=${pizza.id})}" th:object="${pizza}">
+					<form sec:authorize="hasAuthority('ADMIN')" th:action="@{/pizzas/{id}/offers/create(id=${pizza.id})}" th:object="${pizza}">
 						<button type="submit" class="btn btn-success">Start an offer for this Pizza!</button>
 					</form>
 					<a th:href="@{/}" class="btn btn-danger">Back</a>

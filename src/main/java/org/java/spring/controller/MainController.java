@@ -2,9 +2,10 @@ package org.java.spring.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.java.spring.db.serv.IngredientService;
 import org.java.spring.db.serv.PizzaService;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.ui.Model;
@@ -12,13 +13,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import jakarta.validation.Valid;
-
 import java.util.List;
-
 import org.java.spring.db.pojo.Ingredient;
 import org.java.spring.db.pojo.Pizza;
+import java.util.stream.Collectors;
 
 @Controller
 public class MainController {
@@ -30,7 +29,7 @@ public class MainController {
 	private IngredientService ingredientService;
 
 	@GetMapping("/")
-	public String index(Model model, @RequestParam(required = false) String searchedWord) {
+	public String index(Model model, @RequestParam(required = false) String searchedWord, Authentication auth) {
 
 		List<Pizza> pizzas;
 		if (searchedWord == null || searchedWord.length() == 0) {
@@ -40,7 +39,19 @@ public class MainController {
 			model.addAttribute("searchedWord", searchedWord);
 		}
 
+		String username = auth == null
+				? "Null"
+				: auth.getName();
+
+		String role = auth == null
+				? "Null"
+				: auth.getAuthorities().stream()
+						.map(GrantedAuthority::getAuthority)
+						.collect(Collectors.toList()).get(0);
+
 		model.addAttribute("pizzas", pizzas);
+		model.addAttribute("username", username);
+		model.addAttribute("role", role);
 		return "pizzas";
 	}
 
