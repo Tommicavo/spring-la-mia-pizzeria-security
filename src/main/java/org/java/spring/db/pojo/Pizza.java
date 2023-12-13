@@ -13,8 +13,6 @@ import jakarta.persistence.GenerationType;
 import java.util.List;
 import java.util.Arrays;
 import org.hibernate.validator.constraints.Length;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 
 @Entity

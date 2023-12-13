@@ -1,7 +1,5 @@
 package org.java.spring.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.java.spring.db.pojo.Offer;
 import org.java.spring.db.pojo.Pizza;
 import org.java.spring.db.serv.OfferService;

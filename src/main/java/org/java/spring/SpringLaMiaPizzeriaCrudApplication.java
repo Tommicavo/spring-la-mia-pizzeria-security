@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.java.spring.db.serv.IngredientService;
-import org.java.spring.db.serv.OfferService;
 import org.java.spring.db.serv.PizzaService;
 import org.java.spring.auth.conf.AuthConf;
 import org.java.spring.auth.db.pojo.Role;
@@ -20,9 +19,6 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 
 	@Autowired
 	private PizzaService pizzaService;
-
-	@Autowired
-	private OfferService offerService;
 
 	@Autowired
 	private IngredientService ingredientService;
@@ -58,15 +54,6 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner {
 		pizzaService.save(new Pizza("Napoli", "La salata", "imageUrl_3", 800));
 		pizzaService.save(new Pizza("Calzone", "Il farcito", "imageUrl_4", 900, ing4, ing5));
 		pizzaService.save(new Pizza("SuperPizza", "La speciale", "imageUrl_5", 1250, ing1, ing3, ing5));
-
-		// List<Pizza> pizzas = pizzaService.findAll();
-		// offerService.save(new Offer("Offerta 1", LocalDate.now().minusDays(10),
-		// LocalDate.now(), pizzas.get(0)));
-		// offerService.save(
-		// new Offer("Offerta 2", LocalDate.now().minusDays(10),
-		// LocalDate.now().minusDays(5), pizzas.get(1)));
-		// offerService.save(new Offer("Offerta 3", LocalDate.now().minusDays(5),
-		// LocalDate.now(), pizzas.get(2)));
 
 		// Creating Roles
 		Role roleUser = new Role("USER");

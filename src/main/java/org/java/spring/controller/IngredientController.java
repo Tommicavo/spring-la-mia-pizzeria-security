@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 
 @Controller
-public class IngredientController<Ingredient> {
+public class IngredientController {
 
     @Autowired
     private IngredientService ingredientService;
@@ -28,10 +27,10 @@ public class IngredientController<Ingredient> {
 
     @GetMapping("/ingredients")
     public String index(Model model) {
-        List<org.java.spring.db.pojo.Ingredient> ingredients = ingredientService.findAll();
+        List<Ingredient> ingredients = ingredientService.findAll();
 
         model.addAttribute("ingredients", ingredients);
-        model.addAttribute("ingredient", new org.java.spring.db.pojo.Ingredient());
+        model.addAttribute("ingredient", new Ingredient());
 
         return "ingredients";
     }
@@ -39,7 +38,7 @@ public class IngredientController<Ingredient> {
     @PostMapping("/ingredients/store")
     public String storeIngredient(
             Model model,
-            @Valid @ModelAttribute org.java.spring.db.pojo.Ingredient ingredient,
+            @Valid @ModelAttribute Ingredient ingredient,
             BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
@@ -61,7 +60,7 @@ public class IngredientController<Ingredient> {
     @PostMapping("/ingredients/delete/{id}")
     public String deleteIngredient(@PathVariable int id) {
 
-        org.java.spring.db.pojo.Ingredient ingredient = ingredientService.findById(id);
+        Ingredient ingredient = ingredientService.findById(id);
 
         List<Pizza> pizzas = pizzaService.getPizzasByIngredient(ingredient);
 
